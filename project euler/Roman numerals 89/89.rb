@@ -9,8 +9,7 @@
 	M = 1000
 =end
 
-f = File.new("89.txt")
-content = f.readlines
+content = File.open("89.txt").collect {|line| line.chomp}
 num = {
 	"IIII" => "IV",
 	"IIIII" => "V",
@@ -19,3 +18,21 @@ num = {
 	"LXXXX" => "XC",
 	"XXXX" => "XL"
 }
+#content = class string
+puts "start length = #{content.length}"
+start_length = content.length
+
+content.each do |line|
+	line.gsub! 'IIII', "IV"
+	line.gsub! 'IIIII', "V"
+	line.gsub! 'DCCCC', "CM"
+	line.gsub! 'CCCC', "CD"
+	line.gsub! 'LXXXX', "XC"
+	line.gsub! 'XXXX', "XL"
+end
+
+puts "finish length = #{content.length}"
+finish_length = content.length
+
+resualt = start_length - finish_length
+puts "resualt = #{resualt}"

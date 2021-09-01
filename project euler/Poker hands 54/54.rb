@@ -19,113 +19,85 @@ cards_suits = {
 
 def high_card line, cards_suits
 	res = []
-	(0...line.length).step(3) do |n|
+	(0...line.size).step(3) do |n|
 		res.push(cards_suits["#{line[n]}"])
 	end
-	return res.max
+	res.max
 end
 
 def one_pair line
-	(0...line.length).step(3) do |n|
-		if line.count("#{line[n]}") > 1 
-			return true
-		end
+	(0...line.size).step(3) do |n|
+		return true if line.count("#{line[n]}") > 1 	
 	end
-	return false	
 end
 
 def two_pairs line
 	count=0;
-	(0...line.length).step(3) do |n|
+	(0...line.size).step(3) do |n|
 		if line.count("#{line[n]}") > 1 
 			count+=1
 		end
 	end
-	if count==2 
-		return true
-	else
-		return false	
-	end
+	return true if count==2 
 end
 
 def three_of_kind line
 	count=0;
-	(0...line.length).step(3) do |n|
+	(0...line.size).step(3) do |n|
 		if line.count("#{line[n]}") > 1 
 			count+=1
 		end
 	end
-	if count == 3
-		return true
-	else 
-		return false
-	end
+	return true if count == 3
 end
 
 def straight line, cards_suits
 	res = []
-	(0...line.length).step(3) do |n|
+	(0...line.size).step(3) do |n|
 		res.push(cards_suits["#{line[n]}"])
 	end
-	if(res.uniq.length ==5 && (res[4] - res[0] == 4))
-		return true
-	else 
-		return false
-	end
+	return true if(res.uniq.size ==5 && (res[4] - res[0] == 4))
 end
 
 def flush line
 	res = []
-	(1...line.length).step(3) do |n|
+	(1...line.size).step(3) do |n|
 		res.push(line[n])	
 	end
-	if res.uniq.length == 1
-		return true
-	else return false
-	end
+	return true if res.uniq.size == 1
 end
 
 def full_house line, cards_suits
 	res = []
-	(0...line.length).step(3) do |n|
+	(0...line.size).step(3) do |n|
 		res.push(cards_suits["#{line[n]}"])
 	end
-	if res.uniq.count == 2
-		return true
-	else
-		return false
-	end
+	return true if res.uniq.count == 2
 end
 
 def four_of_a_kind line, cards_suits
 	res = []
-	(1...line.length).step(3) do |n|
+	(1...line.size).step(3) do |n|
 		res.push(line[n])	
 	end
 	resNumber = []
-	(0...line.length).step(3) do |n|
+	(0...line.size).step(3) do |n|
 		resNumber.push(cards_suits["#{line[n]}"])
 	end
-	if resNumber.uniq.length == 2 
-		return true
-	else return false
-	end
+	return true if resNumber.uniq.size == 2 
 end
 
 def straight_flush line, cards_suits
 	res = []
-	(1...line.length).step(3) do |n|
+	(1...line.size).step(3) do |n|
 		res.push(line[n])	
 	end
-	if res.uniq.length == 1 && straight(line,cards_suits)
-		return true
-	else return false
-	end	
+	return true if res.uniq.size == 1 && straight(line,cards_suits)
 end
 
 def royal_flush line, cards_suits
 	res = []
-	(0...line.length).step(3) do |n|
+	(0...line.size).step(3) do |n|
 		res.push(cards_suits["#{line[n]}"])	
 	end
 	res = res.sort
@@ -146,13 +118,12 @@ for i in 0...1000
 	mass_resault_first = [royal_flush(first_player_line, cards_suits), straight_flush(first_player_line, cards_suits),four_of_a_kind(first_player_line, cards_suits),full_house(first_player_line, cards_suits), flush(first_player_line), straight(first_player_line, cards_suits), three_of_kind(first_player_line),two_pairs(first_player_line),one_pair(first_player_line)]
 
 	mass_resault_second = [royal_flush(second_player_line, cards_suits), straight_flush(second_player_line, cards_suits),four_of_a_kind(second_player_line, cards_suits),full_house(second_player_line, cards_suits), flush(second_player_line), straight(second_player_line, cards_suits), three_of_kind(second_player_line),two_pairs(second_player_line),one_pair(second_player_line)]
-
 	
 	min_index_first = mass_resault_first.index(true) == nil ? 10 : mass_resault_first.index(true)
 	min_index_second = mass_resault_second.index(true) == nil ? 10 : mass_resault_second.index(true)
 	
-	puts min_index_first
-	puts min_index_second
+	#puts min_index_first
+	#puts min_index_second
 	
 	if (min_index_first < min_index_second)
 		count_First_player +=1

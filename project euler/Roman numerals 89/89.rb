@@ -1,15 +1,14 @@
 #task Roman numerals
-=begin
-	I = 1
-	V = 5
-	X = 10
-	L = 50
-	C = 100
-	D = 500
-	M = 1000
-=end
 
-content = File.open("89.txt").collect {|line| line.chomp}
+#	I = 1
+#	V = 5
+#	X = 10
+#	L = 50
+#	C = 100
+#	D = 500
+#	M = 1000
+
+content = File.open("89.txt").map {|line| line.chomp}
 num = {
 	"IIII" => "IV",
 	"IIIII" => "V",
@@ -18,17 +17,16 @@ num = {
 	"LXXXX" => "XC",
 	"XXXX" => "XL"
 }
-#content = class string
 puts "start length = #{content.length}"
 start_length = content.length
 
 content.each do |line|
-	line.gsub! 'IIII', "IV"
-	line.gsub! 'IIIII', "V"
-	line.gsub! 'DCCCC', "CM"
-	line.gsub! 'CCCC', "CD"
-	line.gsub! 'LXXXX', "XC"
-	line.gsub! 'XXXX', "XL"
+	line.gsub! 'IIII', 'IV'
+	line.gsub! 'IIIII', 'V'
+	line.gsub! 'DCCCC', 'CM'
+	line.gsub! 'CCCC', 'CD'
+	line.gsub! 'LXXXX', 'XC'
+	line.gsub! 'XXXX', 'XL'
 end
 
 puts "finish length = #{content.length}"

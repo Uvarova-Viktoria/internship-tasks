@@ -14,13 +14,9 @@ content.each do |number|
 	end
 	if card_uniq.include?(number[2])
 		card_uniq[number[2]] << number[1]	
+		card_uniq[number[2]] << number[0]
 	end
 end
 
-puts card_uniq
-card_uniq.each do |el|
-	print el[1].split('').uniq
-end
-
-#{"3"=>"077", "1"=>"03377733773733337", "9"=>"0162828222621882178121", "6"=>"0773111317113711", "8"=>"0616166661321632", "0"=>"08892121619898968", "2"=>"0166676777667677", "7"=>"0"}
-#["0", "7"]["0", "3", "7"]["0", "1", "6", "2", "8", "7"]["0", "7", "3", "1"]["0", "6", "1", "3", "2"]["0", "8", "9", "2", "1", "6"]["0", "1", "6", "7"]["0"]
+print card_uniq.sort_by{|key, value|value.chars.uniq.size}.map{|el| el[0]}.join()
+#answer = 731 628 90

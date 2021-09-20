@@ -9,10 +9,8 @@ r, c, a = gets.split(" ").collect { |x| x.to_i }
 STDERR.puts "#{r},#{c},#{a} "
 
 control_point=false
-# kirh_visited_cell = in what cell kirh be
 # pass - только сторона в которую идем (в виде числа) [2,1,3,0,2,2]
 #kirh_pass- координаты каждого шага кирха в координатах [kr,kc] [[5,6],[6,6]...]
-kirh_visited_cell = []
 kirh_pass = []
 pass = []
 
@@ -21,8 +19,8 @@ def reverse_pass(pass)
     return pass.reverse.map{ |value| value = (value+2)%4}
 end
 
-def isVisited(kirh_visited_cell, dot)
-    if kirh_visited_cell.include?(dot)
+def isVisited(kirh_pass, dot)
+    if kirh_pass.include?(dot)
         return true
     end
 end
@@ -32,9 +30,7 @@ loop do
     # kr: row where Kirk is located.
     # kc: column where Kirk is located.
     kr, kc = gets.split(" ").collect { |x| x.to_i }
-    STDERR.puts "#{kr},#{kc} "
-    kirh_visited_cell<<[kr,kc]
-   
+    STDERR.puts "#{kr},#{kc}"
     #input of field, rows - our field
     rows = []
     r.times do
@@ -54,23 +50,22 @@ loop do
     #STDERR.puts "Debug messages..."
   
     #if control room not founded
-    if (!control_point)  
-        # Проверяем боковые точки на то что это точки (тобишь не стена)
+    if (!control_point) 
+        kirh_turn_side =""
         step_mass.each_with_index do |elem, index| 
             if (elem =='.' or elem=='C') 
-                STDERR.puts "bla index= #{index}"
                 #если в этой точке мы не были
-                if !isVisited(kirh_visited_cell, step_index[index])
+                if !isVisited(kirh_pass, step_index[index])
                     pass<<index
                     kirh_pass<<step_index[index]
-                    puts step_side[index]
+                    kirh_turn_side = step_side[index]
                 end
             end
             
         end
+        puts kirh_turn_side
     #if all dot know and step to control room => reverse pass, or go to short pass
     else 
-        #STDERR.puts "pass2= #{reverse_pass(pass)}"
         reverse_pass(pass).each do |side|
             puts step_side[side]
         end

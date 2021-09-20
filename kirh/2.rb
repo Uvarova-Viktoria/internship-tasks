@@ -52,6 +52,7 @@ loop do
     #if control room not founded
     if (!control_point) 
         kirh_turn_side =""
+        #count = 0
         step_mass.each_with_index do |elem, index| 
             if (elem =='.' or elem=='C') 
                 #если в этой точке мы не были
@@ -60,6 +61,8 @@ loop do
                     kirh_pass<<step_index[index]
                     kirh_turn_side = step_side[index]
                 end
+                #elsif (count == 1 && isVisited(kirh_pass, step_index[index]))
+                #kirh_turn_side = step_side[index]
             end
             
         end

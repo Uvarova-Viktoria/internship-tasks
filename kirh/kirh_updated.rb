@@ -41,14 +41,14 @@ loop do
    
     #input of field, rows - our field
     rows = []
-    r.times do
+    r.times{ |i|
         row = gets.chomp # C of the characters in '#.TC?' (i.e. one line of the ASCII maze).
         rows << row.split('')
         STDERR.puts row
         if row.include?('C')
-            STDERR.puts "we found control point = colomn==#{row.index("C")}"
+            STDERR.puts "we found control point = colomn==#{row.index("C")} + row==#{i}"
         end
-    end
+    }
     #if we founded a control point
     if rows[kr][kc]=='C'
         STDERR.puts "yes"
